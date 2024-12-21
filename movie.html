@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Booking System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css" rel="stylesheet">
+    <script
+        src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js" data-color="#000000"
+        data-border-radius="small"></script>
+</head>
+
+<body class="bg-gray-50">
+    <header class="bg-white shadow-sm">
+        <nav class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center"> <img class="h-8 w-auto"
+                            src="https://ai-public.creatie.ai/gen_page/logo_placeholder.png" alt="Logo">
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <a href="#"
+                            class="border-custom text-custom inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Home
+                        </a>
+                        <a href="#"
+                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Movies
+                        </a>
+                        <a href="#"
+                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            Theaters
+                        </a>
+                        <a href="#"
+                            class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                            My Bookings
+                        </a>
+                    </div>
+                </div>
+                <div class="flex items-center"> <button
+                        class="!rounded-button bg-custom text-white px-4 py-2 text-sm font-medium">Login /
+                        Register</button> </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <form action="process_booking.php" method="POST" class="space-y-8">
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-6">Movie Selection</h2>
+                <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                    <div>
+                        <label for="movie" class="block text-sm font-medium text-gray-700">Select Movie</label> <select
+                            id="movie" name="movie" required
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-custom focus:border-custom rounded-md">
+                            <option value="">Choose a movie</option>
+                            <option value="movie1">Inception</option>
+                            <option value="movie2">The Dark Knight</option>
+                            <option value="movie3">Interstellar</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="date" class="block text-sm font-medium text-gray-700">Select Date</label>
+                        <input type="date" id="date" name="date" required
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-custom focus:border-custom">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Select Time</label>
+                        <div class="mt-1 grid grid-cols-3 gap-3">
+                            <button type="button"
+                                class="!rounded-button border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">10:00
+                                AM</button>
+                            <button type="button"
+                                class="!rounded-button border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">2:30
+                                PM</button>
+                            <button type="button"
+                                class="!rounded-button border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">6:00
+                                PM</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="theater" class="block text-sm font-medium text-gray-700">Select Theater</label>
+                        <select id="theater" name="theater" required
+                            class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-custom focus:border-custom rounded-md">
+                            <option value="">Choose a theater</option>
+                            <option value="screen1">Screen 1 - IMAX</option>
+                            <option value="screen2">Screen 2 - Regular</option>
+                            <option value="screen3">Screen 3 - 3D</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-6">Seat Selection</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-center mb-8">
+                        <div class="bg-gray-200 text-center p-4 w-full max-w-2xl">
+                            <p class="text-sm font-medium text-gray-500 mb-4">SCREEN</p>
+                            <div class="grid grid-cols-10 gap-2">
+                                <!-- Generate seats A1-J10 --> <!-- First 3 rows (Premium) -->
+                                <template x-for="row in ['A', 'B', 'C']"> <template
+                                        x-for="seat in Array.from({length: 10}, (_, i) => i + 1)">
+                                        <button type="button"
+                                            class="!rounded-button w-8 h-8 bg-custom text-white text-xs font-medium hover:bg-opacity-90"></button>
+                                    </template>
+                                </template>
+                                <!-- Last 7 rows (Standard) --> <template
+                                    x-for="row in ['D', 'E', 'F', 'G', 'H', 'I', 'J']">
+                                    <template x-for="seat in Array.from({length: 10}, (_, i) => i + 1)">
+                                        <button type="button"
+                                            class="!rounded-button w-8 h-8 bg-gray-300 text-gray-700 text-xs font-medium hover:bg-gray-400"></button>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center space-x-6">
+                        <div class="flex items-center"> <span class="w-4 h-4 bg-custom rounded mr-2"></span>
+                            <span class="text-sm text-gray-600">Premium</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-4 h-4 bg-gray-300 rounded mr-2"></span>
+                            <span class="text-sm text-gray-600">Standard</span>
+                        </div>
+                        <div class="flex items-center"> <span class="w-4 h-4 bg-gray-500 rounded mr-2"></span>
+                            <span class="text-sm text-gray-600">Booked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-6">Booking Summary</h2>
+                <div class="space-y-4">
+                    <div class="flex justify-between"> <span class="text-gray-600">Selected Movie:</span>
+                        <span class="font-medium text-gray-900">Inception</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Date & Time:</span>
+                        <span class="font-medium text-gray-900">June 15, 2024 - 2:30 PM</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-gray-600">Selected Seats:</span> <span class="font-medium text-gray-900">A1,
+                            A2, A3</span>
+                    </div>
+                    <div class="flex justify-between"> <span class="text-gray-600">Total Amount:</span>
+                        <span class="font-medium text-gray-900">$45.00</span>
+                    </div>
+                    <div class="pt-4">
+                        <label for="promo" class="block text-sm font-medium text-gray-700">Promo Code</label>
+                        <div class="mt-1 flex rounded-md shadow-sm">
+                            <input type="text" name="promo" id="promo"
+                                class="focus:ring-custom focus:border-custom flex-1 block w-full rounded-none rounded-l-md sm:text-sm border-gray-300"
+                                placeholder="Enter promo code"> <button type="button"
+                                class="!rounded-button -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-r-md text-gray-700 bg-gray-50 hover:bg-gray-100">
+                                Apply
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-6">Payment Details</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Payment Method</label>
+                        <div class="mt-2 space-y-4">
+                            <div class="flex items-center"> <input id="card" name="payment_method" type="radio"
+                                    class="focus:ring-custom h-4 w-4 text-custom border-gray-300" checked> <label
+                                    for="card" class="ml-3 block text-sm font-medium text-gray-700">
+                                    Credit/Debit Card
+                                </label> </div>
+                            <div class="flex items-center">
+                                <input id="paypal" name="payment_method" type="radio"
+                                    class="focus:ring-custom h-4 w-4 text-custom border-gray-300"> <label for="paypal"
+                                    class="ml-3 block text-sm font-medium text-gray-700">
+                                    PayPal
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+                        <div class="col-span-2">
+                            <label for="card_number" class="block text-sm font-medium text-gray-700">Card Number</label>
+                            <input type="text" name="card_number" id="card_number"
+                                class="mt-1 focus:ring-custom focus:border-custom block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                required>
+                        </div>
+
+                        <div>
+                            <label for="expiry" class="block text-sm font-medium text-gray-700">Expiry Date</label>
+                            <input type="text" name="expiry" id="expiry" placeholder="MM/YY"
+                                class="mt-1 focus:ring-custom focus:border-custom block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                required>
+                        </div>
+
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700">CVV</label>
+                            <input type="text" name="cvv" id="cvv"
+                                class="mt-1 focus:ring-custom focus:border-custom block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                required>
+                        </div>
+
+                        <div class="col-span-2">
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name on Card</label>
+                            <input type="text" name="name" id="name"
+                                class="mt-1 focus:ring-custom focus:border-custom block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                                required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end"> <button type="submit"
+                    class="!rounded-button bg-custom text-white px-8 py-3 text-base font-medium shadow-sm hover:bg-opacity-90">
+                    Confirm Booking
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <footer class="bg-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white text-sm font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">About Us</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">FAQ</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-300 text-sm">Email: support@moviebox.com</li>
+                        <li class="text-gray-300 text-sm">Phone: (555) 123-4567</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4"> <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-white text-sm font-semibold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">Terms & Conditions</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white text-sm">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700">
+                <p class="text-gray-400 text-sm text-center">&copy; 2024 MovieBox. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
